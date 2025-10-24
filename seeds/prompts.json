@@ -1,0 +1,8 @@
+{
+  "v1": {
+    "common": [
+      {"name":"outline","tpl":"Write an outline for: {{topic}}"},
+      {"name":"intro","tpl":"Write an engaging intro about {{topic}}"}
+    ]
+  }
+}

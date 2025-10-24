@@ -1,0 +1,16 @@
+{
+  "name": "aw-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "migrate": "wrangler d1 migrations apply aw_db --remote",
+    "migrate:local": "wrangler d1 migrations apply aw_db"
+  },
+  "devDependencies": {
+    "wrangler": "^3.80.0",
+    "@cloudflare/workers-types": "^4.20241018.0",
+    "typescript": "^5.4.0"
+  }
+}
