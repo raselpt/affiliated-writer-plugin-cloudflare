@@ -1,4 +1,6 @@
--- licenses / activations
+mkdir -p migrations
+cat > migrations/0001_init.sql <<'SQL'
+-- licenses
 CREATE TABLE IF NOT EXISTS licenses (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
@@ -6,10 +8,10 @@ CREATE TABLE IF NOT EXISTS licenses (
   plan TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'active',
   max_activations INTEGER NOT NULL DEFAULT 1,
-  expires_at TEXT,        -- ISO date
+  expires_at TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
-
+-- activations
 CREATE TABLE IF NOT EXISTS activations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   license_id INTEGER NOT NULL,
@@ -23,20 +25,19 @@ CREATE TABLE IF NOT EXISTS activations (
   status TEXT NOT NULL DEFAULT 'active',
   UNIQUE (license_id, site_hash)
 );
-
--- releases & tokens
+-- releases
 CREATE TABLE IF NOT EXISTS releases (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   slug TEXT NOT NULL,
   version TEXT NOT NULL,
-  key_path TEXT,          -- R2 object key (recommended)
-  zip_url TEXT,           -- optional external URL
+  key_path TEXT,
+  zip_url TEXT,
   changelog TEXT,
   signature TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   UNIQUE (slug, version)
 );
-
+-- update_tokens
 CREATE TABLE IF NOT EXISTS update_tokens (
   id TEXT PRIMARY KEY,
   slug TEXT NOT NULL,
@@ -46,3 +47,4 @@ CREATE TABLE IF NOT EXISTS update_tokens (
   expires_at TEXT NOT NULL,
   created_at TEXT NOT NULL
 );
+SQL
